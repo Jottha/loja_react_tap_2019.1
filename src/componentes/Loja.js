@@ -9,6 +9,7 @@ class Loja extends Component {
     return (
       <LojaProvider>
         <BarraDeBusca/>
+        <div className="text-center"><h1>Melhores Livros do Mundo</h1></div>
         <ListaDeProdutos/>
         <CarrinhoDeCompras/>
       </LojaProvider>
