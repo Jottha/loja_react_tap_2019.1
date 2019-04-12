@@ -1,20 +1,26 @@
-import React, { Component } from 'react';
-import {LojaProvider} from '../context/LojaContext';
-import BarraDeBusca from './BarraDeBusca';
-import ListaDeProdutos from './ListaDeProdutos';
-import CarrinhoDeCompras from './CarrinhoDeCompras';
+import React, { useEffect, useContext } from "react";
+import { LojaContext } from "../context/LojaContext";
+import BarraDeBusca from "./BarraDeBusca";
+import ListaDeLivros from "./ListaDeLivros";
+import CarrinhoDeCompras from "./CarrinhoDeCompras";
+import BancoDeDados from "../bd/BancoDeDados";
 
-class Loja extends Component {
-  render() {
-    return (
-      <LojaProvider>
-        <BarraDeBusca/>
-        <div className="text-center"><h1>Melhores Livros do Mundo</h1></div>
-        <ListaDeProdutos/>
-        <CarrinhoDeCompras/>
-      </LojaProvider>
-    );
-  }
+function Loja() {
+  let { setLivrosBackend } = useContext(LojaContext);
+
+  useEffect(() => {
+    BancoDeDados.getLivros()
+      .then(livros => setLivrosBackend(livros))
+      .catch(err => console.log(err));
+  }, []); 
+
+  return (
+    <>
+      <BarraDeBusca />
+      <ListaDeLivros />
+      <CarrinhoDeCompras />
+    </>
+  );
 }
 
 export default Loja;
